@@ -12,6 +12,6 @@ git pull origin master
 
 /usr/bin/docker build --no-cache --squash -t opendronemap/odm:latest -f portable.Dockerfile .
 
-echo $DOCKER_PASS | /usr/local/bin/docker login -u $DOCKER_USER --password-stdin
+echo $DOCKER_PASS | /usr/bin/docker login -u $DOCKER_USER --password-stdin
 
 /usr/bin/docker push opendronemap/odm:latest
