@@ -8,13 +8,19 @@ cd ./ODM
 
 /usr/bin/docker system prune -f
 
-git pull origin master
+env -i git pull origin master
 
 /usr/bin/docker build --no-cache --squash -t opendronemap/odm:latest -f portable.Dockerfile .
 
 echo $DOCKER_PASS | /usr/bin/docker login -u $DOCKER_USER --password-stdin
 
 /usr/bin/docker push opendronemap/odm:latest
+
+# Tag
+VERSION=$(cat VERSION)
+/usr/bin/docker tag opendronemap/odm:latest opendronemap/odm:$VERSION
+/usr/bin/docker push opendronemap/odm:$VERSION
+
 
 if [ -e ./post.sh ]; then
 	./post.sh
