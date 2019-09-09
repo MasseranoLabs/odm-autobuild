@@ -17,6 +17,6 @@ echo $DOCKER_PASS | /usr/bin/docker login -u $DOCKER_USER --password-stdin
 /usr/bin/docker push opendronemap/webodm_webapp:latest
 
 VERSION=$(cat package.json | jq -r '.version')
-/usr/bin/docker tag opendronemap/webodm_webapp:latest opendronemap/webodm_webapp:$VERSION
-/usr/bin/docker push opendronemap/webodm_webapp:$VERSION
+/usr/bin/docker tag opendronemap/webodm_webapp:latest "opendronemap/webodm_webapp:$VERSION"
+/usr/bin/docker push "opendronemap/webodm_webapp:$VERSION"
 

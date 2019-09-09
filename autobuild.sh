@@ -18,8 +18,8 @@ echo $DOCKER_PASS | /usr/bin/docker login -u $DOCKER_USER --password-stdin
 
 # Tag
 VERSION=$(cat VERSION)
-/usr/bin/docker tag opendronemap/odm:latest opendronemap/odm:$VERSION
-/usr/bin/docker push opendronemap/odm:$VERSION
+/usr/bin/docker tag opendronemap/odm:latest "opendronemap/odm:$VERSION"
+/usr/bin/docker push "opendronemap/odm:$VERSION"
 
 
 if [ -e ./post.sh ]; then
