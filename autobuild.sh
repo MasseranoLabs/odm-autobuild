@@ -10,16 +10,23 @@ cd ./ODM
 
 env -i git pull origin master
 
-/usr/bin/docker build --no-cache --squash -t opendronemap/odm:latest -f portable.Dockerfile .
+/usr/bin/docker DOCKER_BUILDKIT=1 build --no-cache --squash -t opendronemap/odm:latest -f portable.Dockerfile .
+
+/usr/bin/docker DOCKER_BUILDKIT=1 build --no-cache --squash -t opendronemap/odm:latest-avx -f Dockerfile .
 
 echo $DOCKER_PASS | /usr/bin/docker login -u $DOCKER_USER --password-stdin
 
 /usr/bin/docker push opendronemap/odm:latest
+/usr/bin/docker push opendronemap/odm:latest-avx
 
 # Tag
 VERSION=$(cat VERSION)
+VERSION_AVX=$VERSION"-avx"
 /usr/bin/docker tag opendronemap/odm:latest "opendronemap/odm:$VERSION"
 /usr/bin/docker push "opendronemap/odm:$VERSION"
+
+/usr/bin/docker tag opendronemap/odm:latest "opendronemap/odm:$VERSION_AVX"
+/usr/bin/docker push "opendronemap/odm:$VERSION_AVX"
 
 
 if [ -e ./post.sh ]; then
